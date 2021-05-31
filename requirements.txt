@@ -1,4 +1,7 @@
+pandas
+uvicorn
 fastapi==0.63.0
+python-decouple==3.3
 python-decouple==3.3
 faunadb==4.0.1
 coinbase==2.1.0
