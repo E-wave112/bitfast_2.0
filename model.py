@@ -1,0 +1,69 @@
+from pathlib import Path
+from fbprophet import Prophet
+import datetime
+import sys
+import warnings
+warnings.filterwarnings('ignore')
+import boto3
+import pandas as pd
+from decouple import config
+
+
+
+##train the model
+def train(model='bitcoin'):
+    if sys.version_info[0] < 3: 
+        from StringIO import StringIO # Python 2.x
+    else:
+        from io import StringIO # Python 3.x
+    ##load the dataset
+    ##set your credentials and secret
+    AWS_ID = config('AWS_ID')
+    AWS_SECRET_KEY = config('AWS_SECRET_KEY')
+
+    ##use the boto3 sdk to integrate python and aws s3
+
+    client = boto3.client('s3', aws_access_key_id=AWS_ID,
+            aws_secret_access_key=AWS_SECRET_KEY)
+
+    ##get the object name and the object key(the actual .csv file)
+    bucket_name = 'edjangobucket'
+    object_key = 'BTCUSD_day.csv'
+
+    csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
+    csv_body = csv_object['Body']
+    csv_string = csv_body.read().decode('utf-8')
+
+    df = pd.read_csv(StringIO(csv_string))
+    # df = pd.read_csv('BTCUSD_day.csv')
+    ##get the date and closing price in order to forecast
+    df_forecast = pd.DataFrame({'ds':[],'y':[]})
+    df_forecast['ds'],df_forecast['y']= df['Date'],df['Close'] 
+    model_prop = Prophet()
+    model_prop.fit(df_forecast)
+    return model_prop
+
+
+##prediction function
+def predict(date=datetime.datetime.today(),model='bitcoin'):
+    model_load = train(model='bitcoin')
+    ##set some extra days forecast parameter so as to give users forecast on some addtional days
+    extra_days = 14
+    ##generate the forecast date_range dataframe
+    #date = datetime.datetime.strptime(date,'%Y-%m-%d').date()
+    end_date = date + datetime.timedelta(days=extra_days)
+    date_frame = pd.date_range(start =date,end=end_date)
+    dates = pd.DataFrame({'ds':date_frame})
+    prediction =  model_load.predict(dates)
+    actual_pred = prediction[['ds','trend']]
+    print(prediction)
+    ##convert to dataframe
+
+
+    ##visualize your trends to find  relevant insgihts
+    model_load.plot(prediction).savefig(f"{model}_plot.png")
+    model_load.plot_components(prediction).savefig(f"{model}_plot_components.png")
+    # prediction_frames = pd.merge(dates,prediction_frame,how=['outer'])
+    # print(prediction_frames)
+    return actual_pred.tail(extra_days).to_dict("records")
+  

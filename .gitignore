@@ -1,0 +1,14 @@
+todo.md
+.env
+__pycache__/
+
+*.joblib
+*.txt
+!requirements.txt
+go.py
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
