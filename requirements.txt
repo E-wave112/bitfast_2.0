@@ -1,6 +1,7 @@
 gunicorn==20.1.0
-uvloop
+uvloop==0.15.2
 pandas==1.2.4
+httptools
 uvicorn==0.13.4
 fastapi==0.63.0
 python-decouple==3.3
