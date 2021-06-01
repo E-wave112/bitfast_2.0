@@ -33,8 +33,8 @@ tags_metadata = [
 app = FastAPI(
 
  title="Bitcoin Price predictor",
-    description="A Machine learning model built with FastAPI,Fauna and Docker that predicts bitcoin prices (in USD and Naira) based on previous market and price data",
-    version="1.0.0",
+    description="A Machine learning model built with Python,FastAPI and Fauna that predicts bitcoin prices (in USD and Naira) based on previous market and price data",
+    version="1.1.0",
     openapi_tags=tags_metadata
 )
 
