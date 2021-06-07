@@ -14,6 +14,8 @@ from faunadb.client import FaunaClient
 from datetime import datetime,date
 ##import ml model
 from model import predict
+#import the random identifier
+from utils import rand_identifier
 
 
 
@@ -63,9 +65,7 @@ async def forecast(date_input:DateModel, email:Optional[str]=Query('joane@doe.co
     prediction_list = predict(date_entered)
     ##generate a unique identifier along with the email address a user enters, this is to
     ##prevent a unique document error in fauna anytime a user with the same email address tries to forecast a bitcoin app more than once
-    rand_identifier = ''.join([chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),
-    chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122)),chr(randint(65,122))])
-    u_email_identifier = email + rand_identifier
+    u_email_identifier = email + rand_identifier()
     
     ##stores the masked user email into fauna
     try:
