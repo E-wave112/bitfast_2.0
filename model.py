@@ -35,7 +35,6 @@ def train(model='bitcoin'):
     csv_string = csv_body.read().decode('utf-8')
 
     df = pd.read_csv(StringIO(csv_string))
-    # df = pd.read_csv('BTCUSD_day.csv')
     ##get the date and closing price in order to forecast
     df_forecast = pd.DataFrame({'ds':[],'y':[]})
     df_forecast['ds'],df_forecast['y']= df['Date'],df['Close'] 
@@ -47,7 +46,7 @@ def train(model='bitcoin'):
 ##prediction function
 def predict(date=datetime.datetime.today(),model='bitcoin'):
     model_load = train(model='bitcoin')
-    ##set some extra days forecast parameter so as to give users forecast on some addtional days
+    ##set some extra days forecast parameter so as to give users forecast on some additional days
     extra_days = 14
     ##generate the forecast date_range dataframe
     #date = datetime.datetime.strptime(date,'%Y-%m-%d').date()
@@ -60,10 +59,8 @@ def predict(date=datetime.datetime.today(),model='bitcoin'):
     ##convert to dataframe
 
 
-    ##visualize your trends to find  relevant insgihts
+    ##visualize your trends to find  relevant insights
     model_load.plot(prediction).savefig(f"{model}_plot.png")
     model_load.plot_components(prediction).savefig(f"{model}_plot_components.png")
-    # prediction_frames = pd.merge(dates,prediction_frame,how=['outer'])
-    # print(prediction_frames)
     return actual_pred.tail(extra_days).to_dict("records")
   
