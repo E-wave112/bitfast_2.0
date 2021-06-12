@@ -1,5 +1,5 @@
 from random import randint
-
+##generate a random identifier
 def rand_identifier():
     rand_id  = []
     for i in range(12):
