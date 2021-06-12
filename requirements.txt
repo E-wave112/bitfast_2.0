@@ -3,9 +3,9 @@ uvloop==0.15.2
 pandas==1.2.4
 httptools
 uvicorn==0.13.4
-fastapi==0.63.0
+fastapi==0.65.1
 python-decouple==3.3
-faunadb==4.0.1
+faunadb==4.1.0
 coinbase==2.1.0
 boto3==1.17.54
 pystan==2.19.1.1
