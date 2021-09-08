@@ -50,15 +50,12 @@ def predict(date=datetime.datetime.today(),model='bitcoin'):
     ##set some extra days forecast parameter so as to give users forecast on some additional days
     extra_days = 14
     ##generate the forecast date_range dataframe
-    #date = datetime.datetime.strptime(date,'%Y-%m-%d').date()
     end_date = date + datetime.timedelta(days=extra_days)
     date_frame = pd.date_range(start =date,end=end_date)
     dates = pd.DataFrame({'ds':date_frame})
     prediction =  model_load.predict(dates)
     actual_pred = prediction[['ds','trend']]
     print(prediction)
-    ##convert to dataframe
-
 
     ##visualize your trends to find  relevant insights
     model_load.plot(prediction).savefig(f"{model}_plot.png")

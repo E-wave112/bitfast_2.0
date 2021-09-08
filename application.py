@@ -2,7 +2,6 @@ import pandas as pd
 from fastapi import FastAPI,HTTPException,Query
 from typing import Optional,List,Dict
 from pydantic import BaseModel
-import coinbase
 from coinbase.wallet.client import Client
 from decouple import config
 from random import randint
