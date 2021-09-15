@@ -27,7 +27,7 @@ tags_metadata = [
     },
     {
         "name": "forecast",
-        "description": "Accepts a datetime (in the format YYY-MMM-DDD) object as input and forecasts the bitcoin price for that particular date and a fortnight(13 days beyond)."
+        "description": "Accepts a datetime (in the format YYY-MMM-DDD) object as input and forecasts the bitcoin price(in USD) for that particular date and a fortnight(13 days beyond)."
         
     },
 ]
