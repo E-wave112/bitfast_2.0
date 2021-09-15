@@ -1,4 +1,4 @@
-* A bitcoin price predictor built with [fastAPI](https://fastapi.tiangolo.com/) and [FaunaDB](https://fauna.com/) 
+### A bitcoin price predictor built with [fastAPI](https://fastapi.tiangolo.com/) and [FaunaDB](https://fauna.com/) 
 
 * The predictor is powered via a [time-series-forecasting](https://en.wikipedia.org/wiki/Time_series) Machine Learning Model
 
