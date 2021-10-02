@@ -7,6 +7,5 @@ python-decouple==3.3
 faunadb==4.1.0
 coinbase==2.1.0
 boto3==1.17.54
-Cython
 pystan==2.19.1.1
 fbprophet==0.7.1
