@@ -49,7 +49,7 @@ class DateModel(BaseModel):
 
 
 @app.get('/price',tags=['btcprice'])
-###function to get current btc prices
+###function to get current btc prices rates in usd and ngn
 async def get_btc():
     rates = client.get_exchange_rates(currency='BTC')
     context = {"usd":rates["rates"]["USD"], "naira":rates["rates"]["NGN"]}
