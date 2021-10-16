@@ -15,7 +15,6 @@ def train(model='bitcoin'):
         from StringIO import StringIO # Python 2.x
     else:
         from io import StringIO # Python 3.x
-    ##load the dataset
     ##set your credentials and secret
     AWS_ID = config('AWS_ID')
     AWS_SECRET_KEY = config('AWS_SECRET_KEY')
@@ -27,18 +26,19 @@ def train(model='bitcoin'):
 
     ##get the object name and the object key(the actual .csv file)
     bucket_name = 'edjangobucket'
-    # object_key = 'BTCUSD_day.csv'
-    object_key = 'BTC_Latest.csv'
+    # object_key = 'BTC_Latest.csv'
+    object_key = 'BTC_Data.csv'
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object['Body']
     csv_string = csv_body.read().decode('utf-8')
 
+    ##load the dataset
     df = pd.read_csv(StringIO(csv_string))
     ##get the date and closing price in order to forecast
     df_forecast = pd.DataFrame({'ds':[],'y':[]})
     df_forecast['ds'],df_forecast['y']= df['Date'],df['Close'] 
-    model_prop = Prophet()
+    model_prop = Prophet(daily_seasonality=True,changepoint_prior_scale=0.05)
     model_prop.fit(df_forecast)
     return model_prop
 
@@ -54,7 +54,7 @@ def predict(date=datetime.datetime.today(),model='bitcoin'):
     dates = pd.DataFrame({'ds':date_frame})
     prediction =  model_load.predict(dates)
     actual_pred = prediction[['ds','trend']]
-    print(prediction)
+
 
     ##visualize your trends to find  relevant insights
     model_load.plot(prediction).savefig(f"{model}_plot.png")
