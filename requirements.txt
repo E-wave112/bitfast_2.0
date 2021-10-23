@@ -3,6 +3,7 @@ pandas==1.2.4
 httptools
 uvloop
 uvicorn==0.13.4
+selenium==4.0.0
 fastapi==0.65.2
 python-decouple==3.3
 faunadb==4.1.0
@@ -10,3 +11,5 @@ coinbase==2.1.0
 boto3==1.17.54
 pystan==2.19.1.1
 fbprophet==0.7.1
+s3fs==2021.8.1
+s3transfer==0.4.2
