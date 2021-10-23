@@ -14,7 +14,7 @@ from datetime import datetime, date
 # import ml model
 from ml.model import predict
 # import the random identifier
-from utils.utils import rand_identifier
+from utils.rand_utils import rand_identifier
 
 
 fauna_client = FaunaClient(secret=config('FAUNA_SECRET_KEY'))
