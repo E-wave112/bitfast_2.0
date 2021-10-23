@@ -7,6 +7,8 @@ __pycache__/
 !requirements.txt
 *.log
 test.py
+utils/*
+!utils/rand_utils.py
 *.sh
 
 # Elastic Beanstalk Files
