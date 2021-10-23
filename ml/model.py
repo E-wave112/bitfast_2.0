@@ -27,7 +27,7 @@ def train(model='bitcoin'):
     ##get the object name and the object key(the actual .csv file)
     bucket_name = 'edjangobucket'
     # object_key = 'BTC_Latest.csv'
-    object_key = 'BTC_Data.csv'
+    object_key = 'BTC_updated.csv'
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object['Body']
@@ -38,7 +38,7 @@ def train(model='bitcoin'):
     ##get the date and closing price in order to forecast
     df_forecast = pd.DataFrame({'ds':[],'y':[]})
     df_forecast['ds'],df_forecast['y']= df['Date'],df['Close'] 
-    model_prop = Prophet(daily_seasonality=True,changepoint_prior_scale=0.05)
+    model_prop = Prophet()
     model_prop.fit(df_forecast)
     return model_prop
 
