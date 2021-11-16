@@ -1,6 +1,7 @@
 # generate a random identifier to add to the db email field
 from random import randint
 
+
 def rand_identifier():
     rand_id = []
     for i in range(12):

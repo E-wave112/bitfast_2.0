@@ -1,6 +1,7 @@
 todo.md
 .env
 __pycache__/
+.vscode
 
 *.joblib
 *.txt
