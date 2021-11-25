@@ -28,7 +28,7 @@ def train(model="bitcoin"):
     ##get the object name and the object key(the actual .csv file)
     bucket_name = "edjangobucket"
     # object_key = 'BTC_Latest.csv'
-    object_key = "BTC_updated_latest.csv"
+    object_key = "BTC_updated.csv"
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object["Body"]
