@@ -25,6 +25,10 @@ fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
 
 tags_metadata = [
     {
+        "name":"getting-started",
+        "description":"A primer into bitfast!"
+    },
+    {
         "name": "btcprice",
         "description": "Returns the current bitcoin exchange rate in real time for USD and NGN currencies",
     },
@@ -47,6 +51,12 @@ client = Client(config("COINBASE_API_KEY"), config("COINBASE_SECRET_KEY"))
 # validate the date format via pydantic
 class DateModel(BaseModel):
     date_entered: date
+
+
+@app.get("/", tags=["getting-started"])
+# function to get current btc prices rates in usd and ngn
+async def index():
+    return "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
 
 
 @app.get("/price", tags=["btcprice"])
