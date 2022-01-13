@@ -9,7 +9,7 @@ import pandas as pd
 from decouple import config
 
 
-##train the model
+
 def train(model="bitcoin"):
     if sys.version_info[0] < 3:
         from StringIO import StringIO  # Python 2.x
@@ -20,7 +20,6 @@ def train(model="bitcoin"):
     AWS_SECRET_KEY = config("AWS_SECRET_KEY")
 
     ##use the boto3 sdk to integrate python and aws s3
-
     client = boto3.client(
         "s3", aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_SECRET_KEY
     )
@@ -28,7 +27,7 @@ def train(model="bitcoin"):
     ##get the object name and the object key(the actual .csv file)
     bucket_name = "edjangobucket"
     # object_key = 'BTC_latest.csv'
-    object_key = 'btc_updated.csv'
+    object_key = "btc_updated.csv"
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object["Body"]
@@ -47,7 +46,6 @@ def train(model="bitcoin"):
 ##prediction function
 def predict(date=datetime.datetime.today(), model="bitcoin"):
     model_load = train(model="bitcoin")
-    ##set some extra days forecast parameter so as to give users forecast on some additional days
     extra_days = 14
     ##generate the forecast date_range dataframe
     end_date = date + datetime.timedelta(days=extra_days)

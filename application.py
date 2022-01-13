@@ -2,9 +2,7 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
 from typing import Optional, List, Dict
 from pydantic import BaseModel
-from coinbase.wallet.client import Client
 from decouple import config
-from random import randint
 
 # import the fauna driver
 from faunadb import query as q
@@ -19,16 +17,15 @@ from ml.model import predict
 
 # import the random identifier
 from utils.rand_utils import rand_identifier
+
+# import crypto utils
 from utils.crypto_utils import get_crypto_prices
 
 
 fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
 
 tags_metadata = [
-    {
-        "name":"getting-started",
-        "description":"A primer into bitfast!"
-    },
+    {"name": "getting-started", "description": "A primer into bitfast!"},
     {
         "name": "btcprice",
         "description": "Returns the current bitcoin exchange rate in real time for USD and NGN currencies",
@@ -45,30 +42,20 @@ app = FastAPI(
     openapi_tags=tags_metadata,
 )
 
-# define the coinbase python client
-client = Client(config("COINBASE_API_KEY"), config("COINBASE_SECRET_KEY"))
 
 
-# validate the date format via pydantic
 class DateModel(BaseModel):
     date_entered: date
 
 
 @app.get("/", tags=["getting-started"])
-# function to get current btc prices rates in usd and ngn
 async def index():
     return "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
 
 
 @app.get("/price", tags=["btcprice"])
-# function to get current btc prices rates in usd and ngn
 async def get_btc():
     return get_crypto_prices()
-
-    # async def get_btc():
-    # rates = client.get_exchange_rates(currency="BTC")
-    # context = {"usd": rates["rates"]["USD"], "naira": rates["rates"]["NGN"]}
-    # return {"current bitcoin exchange rates": context}
 
 
 @app.post("/predict", status_code=200, tags=["forecast"])
