@@ -10,8 +10,9 @@ __pycache__/
 test.py
 utils/*
 !utils/rand_utils.py
+!utils/crypto_utils.py
 *.sh
-
+*.json
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

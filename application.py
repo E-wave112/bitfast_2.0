@@ -19,6 +19,7 @@ from ml.model import predict
 
 # import the random identifier
 from utils.rand_utils import rand_identifier
+from utils.crypto_utils import get_crypto_prices
 
 
 fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
@@ -62,9 +63,12 @@ async def index():
 @app.get("/price", tags=["btcprice"])
 # function to get current btc prices rates in usd and ngn
 async def get_btc():
-    rates = client.get_exchange_rates(currency="BTC")
-    context = {"usd": rates["rates"]["USD"], "naira": rates["rates"]["NGN"]}
-    return {"current bitcoin exchange rates": context}
+    return get_crypto_prices()
+
+    # async def get_btc():
+    # rates = client.get_exchange_rates(currency="BTC")
+    # context = {"usd": rates["rates"]["USD"], "naira": rates["rates"]["NGN"]}
+    # return {"current bitcoin exchange rates": context}
 
 
 @app.post("/predict", status_code=200, tags=["forecast"])
