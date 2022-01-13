@@ -9,5 +9,4 @@ faunadb
 coinbase
 boto3
 pystan==3.3.0
-httpstan==4.4.1
 fbprophet
