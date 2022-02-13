@@ -38,7 +38,7 @@ def train(model="bitcoin"):
     ##get the date and closing price in order to forecast
     df_forecast = pd.DataFrame({"ds": [], "y": []})
     df_forecast["ds"], df_forecast["y"] = df["Date"], df["Close"]
-    model_prop = Prophet(growth="linear",seasonality_mode="multiplicative")
+    model_prop = Prophet()
     model_prop.fit(df_forecast)
     return model_prop
 
