@@ -10,4 +10,14 @@
 
 * Check out the live API via [this](https://bitfast.herokuapp.com/docs) or [that](https://bitfast.herokuapp.com/redoc) link
 
+## Metrics 
+- NB: these metrics improve over time as the model keeps learning from new data and hyperparameters are tweaked
+```
+MAPE=0.1580988278794064
+MAE=4238.996757222961
+RMSE=4585.15513690739
+```
+
+
+
 **Wanna check out my other machine learning projects and implementations?**  see all of them [here](https://github.com/E-wave112/ml_proj1).
