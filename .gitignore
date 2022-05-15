@@ -11,6 +11,9 @@ test.py
 utils/*
 !utils/rand_utils.py
 !utils/crypto_utils.py
+!utils/__init__.py
+!utils/url.py
+
 *.sh
 *.json
 # Elastic Beanstalk Files
