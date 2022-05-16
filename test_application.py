@@ -26,21 +26,6 @@ async def test_prices():
         assert type(response.json()) == dict
 
 
-@pytest.mark.anyio
-async def test_predict():
-    async with AsyncClient(app=app, base_url="https://bitfast.herokuapp.com") as ac:
-        headers = {"content-type": "application/json", "accept": "application/json"}
-        params = {"email": "joane@gmail.com"}
-        response = await ac.post(
-            "/predict",
-            headers=headers,
-            params=params,
-            data=json.dumps({"date_entered": "2022-05-16"}),
-        )
-        assert response.status_code == 200
-        assert type(response.json()) == dict
-
-
 def test_crypto_utils():
     assert type(get_crypto_prices()) == dict
 
