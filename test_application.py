@@ -2,7 +2,6 @@ import pytest
 import json
 from httpx import AsyncClient
 from application import app
-from dto.predict import Predict
 from utils.crypto_utils import get_crypto_prices
 from utils.rand_utils import rand_identifier
 from utils.url import get_url
@@ -33,7 +32,10 @@ async def test_predict():
         headers = {"content-type": "application/json", "accept": "application/json"}
         params = {"email": "joane@gmail.com"}
         response = await ac.post(
-            "/predict", headers=headers, data=json.dumps({"date_entered": "2022-05-16"})
+            "/predict",
+            headers=headers,
+            params=params,
+            data=json.dumps({"date_entered": "2022-05-16"}),
         )
         assert response.status_code == 200
         assert type(response.json()) == dict

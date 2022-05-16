@@ -1,12 +1,10 @@
-import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
-from typing import Optional, List, Dict
+from typing import Optional, List
 from pydantic import BaseModel
 from decouple import config
 
 # import the fauna driver
 from faunadb import query as q
-from faunadb.objects import Ref
 from faunadb.client import FaunaClient
 
 # import pytz and datetime to add timestamps to fauna db
