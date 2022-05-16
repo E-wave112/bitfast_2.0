@@ -35,7 +35,7 @@ jobs:
           echo "FAUNA_SECRET_KEY={{secrets.FAUNA_SECRET_KEY}}" >> $GITHUB_ENV
           echo "ENV={{secrets.ENV}}" >> $GITHUB_ENV >> $GITHUB_ENV
           echo "AWS_SECRET_KEY={{secrets.AWS_SECRET_KEY}}" >> $GITHUB_ENV
-          echo "AWS_ID={{secrets.AWS_SECRET_KEY}}" >> $GITHUB_ENV
+          echo "AWS_ID={{secrets.AWS_ID}}" >> $GITHUB_ENV
       - name: Install coverage and pytest
         run: |
           python -m pip install --upgrade pip
