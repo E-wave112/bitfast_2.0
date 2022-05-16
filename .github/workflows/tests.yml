@@ -28,7 +28,10 @@ jobs:
         # Display the Python version being used
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-        
+      - name: Set Env variables
+        run: |
+           echo "COINBASE_API_KEY=pOHG2wjjV5GRMe4t" >> $GITHUB_ENV
+           echo "COINBASE_SECRET_KEY=LzNReAeoUe8kfZL56GN6j47XGcS4Ki0a" >> $GITHUB_ENV
       - name: Install coverage and pytest
         run: |
           python -m pip install --upgrade pip
