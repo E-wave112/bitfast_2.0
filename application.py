@@ -21,7 +21,7 @@ from utils.rand_utils import rand_identifier
 # import crypto utils
 from utils.crypto_utils import get_crypto_prices
 
-#import dtos
+# import dtos
 from dto.predict import Predict
 from dto.metadata import MetaData
 
@@ -44,7 +44,6 @@ app = FastAPI(
     version="1.1.0",
     openapi_tags=tags_metadata,
 )
-
 
 
 class DateModel(BaseModel):
