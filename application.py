@@ -1,12 +1,10 @@
-import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
-from typing import Optional, List, Dict
+from typing import Optional, List
 from pydantic import BaseModel
 from decouple import config
 
 # import the fauna driver
 from faunadb import query as q
-from faunadb.objects import Ref
 from faunadb.client import FaunaClient
 
 # import pytz and datetime to add timestamps to fauna db
@@ -21,10 +19,13 @@ from utils.rand_utils import rand_identifier
 # import crypto utils
 from utils.crypto_utils import get_crypto_prices
 
+# import dtos
+from dto.predict import Predict
+from dto.metadata import MetaData
 
 fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
 
-tags_metadata = [
+tags_metadata: List[MetaData] = [
     {"name": "getting-started", "description": "A primer into bitfast!"},
     {
         "name": "btcprice",
@@ -43,13 +44,12 @@ app = FastAPI(
 )
 
 
-
 class DateModel(BaseModel):
     date_entered: date
 
 
 @app.get("/", tags=["getting-started"])
-async def index():
+async def index() -> str:
     return "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
 
 
@@ -68,7 +68,7 @@ async def forecast(
         max_length=100,
         regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$",
     ),
-):
+) -> Predict:
     date_entered = date_input.date_entered
     prediction_list = predict(date_entered)
     # generate a unique identifier along with the email address a user enters, this is to

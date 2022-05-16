@@ -19,7 +19,5 @@ def get_crypto_prices():
         "Shiba": _to_decimals(1 / float(rates["rates"]["SHIB"])),
         "Tether": _to_decimals(1 / float(rates["rates"]["USDT"])),
     }
+    
     return {"exchange rates for popular coins": context}
-
-
-print(get_crypto_prices())
