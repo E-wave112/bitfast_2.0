@@ -32,7 +32,7 @@ jobs:
       - name: Install coverage and pytest
         run: |
           python -m pip install --upgrade pip
-          pip install coverage pytest
+          pip install coverage pytest httpx
         # Run the tests. I'm using pytest and coverage and the file is in the tests directory.
       - name: Run tests
         run: coverage run -m pytest
