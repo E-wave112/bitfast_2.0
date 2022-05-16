@@ -20,7 +20,7 @@ async def test_root():
 
 @pytest.mark.anyio
 async def test_prices():
-    async with AsyncClient(app=app, base_url=get_url()) as ac:
+    async with AsyncClient(app=app, base_url="https://bitfast.herokuapp.com") as ac:
         response = await ac.get("/price")
         assert response.status_code == 200
         assert type(response.json()) == dict
@@ -28,7 +28,7 @@ async def test_prices():
 
 @pytest.mark.anyio
 async def test_predict():
-    async with AsyncClient(app=app, base_url=get_url()) as ac:
+    async with AsyncClient(app=app, base_url="https://bitfast.herokuapp.com") as ac:
         headers = {"content-type": "application/json", "accept": "application/json"}
         params = {"email": "joane@gmail.com"}
         response = await ac.post(
