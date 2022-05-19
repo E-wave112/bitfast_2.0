@@ -8,7 +8,6 @@ from decouple import config
 
 warnings.filterwarnings("ignore")
 
-
 def train(model="bitcoin"):
     if sys.version_info[0] < 3:
         from StringIO import StringIO  # Python 2.x
