@@ -17,6 +17,7 @@ def train(model="bitcoin"):
     AWS_ID = config("AWS_ID")
     AWS_SECRET_KEY = config("AWS_SECRET_KEY")
 
+    
     # use the boto3 sdk to integrate python and aws s3
     client = boto3.client(
         "s3", aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_SECRET_KEY
