@@ -1,10 +1,14 @@
+from logging import Logger
 import pytest
 import json
+import redis
 from httpx import AsyncClient
 from application import app
 from utils.constants import AWS_BUCKET_NAME, FORECAST_INTERVAL, OBJECT_KEY
 from utils.crypto_utils import get_crypto_prices
 from utils.rand_utils import rand_identifier
+from utils.logger_file import get_logger_info
+from utils.redis_helpers import get_redis_instance
 from utils.url import get_url
 
 
@@ -48,3 +52,11 @@ def test_constants():
     assert FORECAST_INTERVAL == 14
     assert type(OBJECT_KEY) == str
     assert OBJECT_KEY == "btc_updated.csv"
+
+
+def test_logger():
+    assert type(get_logger_info(__name__)) == Logger
+
+
+def test_redis_connection():
+    assert type(get_redis_instance()) == redis.Redis
