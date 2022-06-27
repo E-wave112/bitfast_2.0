@@ -1,14 +1,18 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request, Response
+from fastapi_redis_cache import FastApiRedisCache, cache
 from typing import Optional, List
-from pydantic import BaseModel
 from decouple import config
+import logging
+import pickle
+import json
+import redis
 
 # import the fauna driver
 from faunadb import query as q
 from faunadb.client import FaunaClient
 
 # import pytz and datetime to add timestamps to fauna db
-from datetime import datetime, date
+from datetime import datetime, timedelta
 
 # import ml model
 from ml.model import predict
@@ -20,8 +24,13 @@ from utils.rand_utils import rand_identifier
 from utils.crypto_utils import get_crypto_prices
 
 # import dtos
-from dto.predict import Predict
+from dto.predict import Predict, DateModel
 from dto.metadata import MetaData
+
+# configure the logger
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                     level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
 
@@ -43,19 +52,42 @@ app = FastAPI(
     openapi_tags=tags_metadata,
 )
 
+REDIS_HOST=config("REDIS_HOST")
+redis_instance = redis.Redis(host=REDIS_HOST, port=15448, db=0, password=config("REDIS_PASSWORD"), username=config("REDIS_USERNAME"))
+logger.info("Redis instance created")
 
-class DateModel(BaseModel):
-    date_entered: date
-
+@app.on_event("startup")
+def startup():
+    redis_instance = redis.Redis(host=REDIS_HOST, port=15448, db=0, password=config("REDIS_PASSWORD"), username=config("REDIS_USERNAME"))
+    logger.info("Redis instance created")
+    
+    # redis_cache = FastApiRedisCache()
+    # redis_cache.init(
+    #     host_url= REDIS_URL,
+    #     ignore_arg_types=[Request, Response],
+    #     )
 
 @app.get("/", tags=["getting-started"])
 async def index() -> str:
-    return "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
-
+    res_message = "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
+    # try to get the value from redis
+    value = redis_instance.get("index")
+    # if the value is not found, then add the value store it in redis for one year
+    if value is None:
+        redis_instance.set("index", res_message, ex=timedelta(days=365))
+        value = redis_instance.get("index")
+    return value
 
 @app.get("/price", tags=["btcprice"])
 async def get_btc():
-    return get_crypto_prices()
+    data =  json.dumps(get_crypto_prices())
+    # try to get the value from redis
+    value = redis_instance.get("prices")
+    # if the value is not found, then add the value store it in redis for thirty minutes
+    if value is None:
+        redis_instance.set("prices", data, ex=timedelta(minutes=30))
+        value = json.loads(redis_instance.get("prices"))
+    return json.loads(value)
 
 
 @app.post("/predict", status_code=200, tags=["forecast"])
