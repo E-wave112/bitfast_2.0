@@ -16,4 +16,4 @@ coinbase==2.1.0
 boto3==1.17.54
 pystan==2.19.1.1
 fbprophet==0.7.1
-fastapi-redis-cache==0.2.5
+redis

@@ -2,6 +2,7 @@ import pytest
 import json
 from httpx import AsyncClient
 from application import app
+from utils.constants import AWS_BUCKET_NAME, FORECAST_INTERVAL, OBJECT_KEY
 from utils.crypto_utils import get_crypto_prices
 from utils.rand_utils import rand_identifier
 from utils.url import get_url
@@ -38,3 +39,12 @@ def test_rand_utils():
 def test_url():
     assert type(get_url()) == str
     assert get_url() == "https://bitfast.herokuapp.com" or "http://127.0.0.1:8000"
+
+
+def test_constants():
+    assert type(AWS_BUCKET_NAME) == str
+    assert AWS_BUCKET_NAME == "edjangobucket"
+    assert type(FORECAST_INTERVAL) == int
+    assert FORECAST_INTERVAL == 14
+    assert type(OBJECT_KEY) == str
+    assert OBJECT_KEY == "btc_updated.csv"

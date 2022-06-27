@@ -12,6 +12,7 @@ class Predict(BaseModel):
     email: str
     date_entered: str
     forecast: List[UnitForecast]
-    
+
+
 class DateModel(BaseModel):
     date_entered: date

@@ -6,6 +6,8 @@ import boto3
 import pandas as pd
 from decouple import config
 
+from utils.constants import AWS_BUCKET_NAME, FORECAST_INTERVAL, OBJECT_KEY
+
 warnings.filterwarnings("ignore")
 
 
@@ -24,9 +26,9 @@ def train(model="bitcoin"):
     )
 
     # get the object name and the object key(the actual .csv file)
-    bucket_name = "edjangobucket"
+    bucket_name = AWS_BUCKET_NAME
     # object_key = 'BTC_latest.csv'
-    object_key = "btc_updated.csv"
+    object_key = OBJECT_KEY
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object["Body"]
@@ -45,7 +47,7 @@ def train(model="bitcoin"):
 # prediction function
 def predict(date=datetime.datetime.today(), model="bitcoin"):
     model_load = train(model="bitcoin")
-    extra_days = 14
+    extra_days = FORECAST_INTERVAL
     # generate the forecast date_range dataframe
     end_date = date + datetime.timedelta(days=extra_days)
     date_frame = pd.date_range(start=date, end=end_date)
