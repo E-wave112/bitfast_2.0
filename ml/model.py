@@ -6,7 +6,10 @@ import boto3
 import pandas as pd
 from decouple import config
 
+from utils.constants import AWS_BUCKET_NAME, FORECAST_INTERVAL, OBJECT_KEY
+
 warnings.filterwarnings("ignore")
+
 
 def train(model="bitcoin"):
     if sys.version_info[0] < 3:
@@ -17,16 +20,15 @@ def train(model="bitcoin"):
     AWS_ID = config("AWS_ID")
     AWS_SECRET_KEY = config("AWS_SECRET_KEY")
 
-    
     # use the boto3 sdk to integrate python and aws s3
     client = boto3.client(
         "s3", aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_SECRET_KEY
     )
 
     # get the object name and the object key(the actual .csv file)
-    bucket_name = "edjangobucket"
+    bucket_name = AWS_BUCKET_NAME
     # object_key = 'BTC_latest.csv'
-    object_key = "btc_updated.csv"
+    object_key = OBJECT_KEY
 
     csv_object = client.get_object(Bucket=bucket_name, Key=object_key)
     csv_body = csv_object["Body"]
@@ -45,7 +47,7 @@ def train(model="bitcoin"):
 # prediction function
 def predict(date=datetime.datetime.today(), model="bitcoin"):
     model_load = train(model="bitcoin")
-    extra_days = 14
+    extra_days = FORECAST_INTERVAL
     # generate the forecast date_range dataframe
     end_date = date + datetime.timedelta(days=extra_days)
     date_frame = pd.date_range(start=date, end=end_date)

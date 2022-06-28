@@ -1,14 +1,14 @@
 from fastapi import FastAPI, HTTPException, Query
 from typing import Optional, List
-from pydantic import BaseModel
 from decouple import config
+from utils.logger_file import get_logger_info
 
 # import the fauna driver
 from faunadb import query as q
 from faunadb.client import FaunaClient
 
 # import pytz and datetime to add timestamps to fauna db
-from datetime import datetime, date
+from datetime import datetime, timedelta
 
 # import ml model
 from ml.model import predict
@@ -20,8 +20,11 @@ from utils.rand_utils import rand_identifier
 from utils.crypto_utils import get_crypto_prices
 
 # import dtos
-from dto.predict import Predict
+from dto.predict import Predict, DateModel
 from dto.metadata import MetaData
+from utils.redis_helpers import get_redis_instance, manage_redis_dict, manage_redis_str
+
+logger = get_logger_info(__name__)
 
 fauna_client = FaunaClient(secret=config("FAUNA_SECRET_KEY"))
 
@@ -44,18 +47,20 @@ app = FastAPI(
 )
 
 
-class DateModel(BaseModel):
-    date_entered: date
+redis_instance = get_redis_instance()
+logger.info("Redis instance created")
 
 
 @app.get("/", tags=["getting-started"])
 async def index() -> str:
-    return "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
+    res_message = "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
+    return manage_redis_str("index", res_message, 525600)
 
 
 @app.get("/price", tags=["btcprice"])
 async def get_btc():
-    return get_crypto_prices()
+    data = get_crypto_prices()
+    return manage_redis_dict("prices", data, 30)
 
 
 @app.post("/predict", status_code=200, tags=["forecast"])
