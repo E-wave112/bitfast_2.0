@@ -1,7 +1,7 @@
 ![example workflow](https://github.com/E-wave112/bitfast_2.0/actions/workflows/tests.yml/badge.svg)
 ![codecov](https://img.shields.io/codecov/c/gh/E-wave112/bitfast_2.0?token=JMXVER0IMD)
 
-### A bitcoin USD exchange rate predictor built with [fastAPI](https://fastapi.tiangolo.com/) and [FaunaDB](https://fauna.com/) 
+### A bitcoin USD exchange rate predictor built with [FastAPI](https://fastapi.tiangolo.com/) and [FaunaDB](https://fauna.com/) 
 
 * The predictor is powered by a [time-series-forecasting](https://en.wikipedia.org/wiki/Time_series) Machine Learning Model.
 
@@ -23,4 +23,4 @@ RMSE=4585.15513690739
 
 
 
-**Wanna check out my other machine learning projects and implementations?**  see all of them [here](https://github.com/E-wave112/ml_proj1).
+**Wanna check out my other machine learning projects and implementations?**  see them all [here](https://github.com/E-wave112/ml_proj1).
