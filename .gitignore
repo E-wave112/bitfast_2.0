@@ -139,6 +139,7 @@ todo.md
 test.py
 
 *.sh
+!start.sh
 *.json
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

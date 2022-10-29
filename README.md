@@ -13,13 +13,42 @@
 
 * Check out the live API via [this](https://bitfast.herokuapp.com/docs) or [that](https://bitfast.herokuapp.com/redoc) link
 
-## Metrics 
+### Metrics 
 - NB: these metrics improve over time as the model keeps learning from new data and hyperparameters are tweaked
 ```
 MAPE=0.1580988278794064
 MAE=4238.996757222961
 RMSE=4585.15513690739
 ```
+
+### Getting Started
+
+To get started with the project, ensure you have setup and activated a virtual environment, guides on that [here](https://realpython.com/python-virtual-environments-a-primer/)
+
+clone the repository via the command
+
+```
+$ git clone https://github.com/E-wave112/bitfast_2.0
+```
+install dependencies
+
+```
+$ python3 -m pip install -r requirements.txt
+```
+
+### Running the development Server
+
+start the server by running the bash script below:
+```
+$ bash start.sh
+```
+
+Alternatively, you can start the server using the command below:
+```
+$ uvicorn application:app --reload
+```
+
+the server will be running on http://localhost:8000/docs
 
 
 
