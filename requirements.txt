@@ -9,8 +9,8 @@ httpx
 trio
 pytest-asyncio
 pytest-trio
-uvicorn==0.13.4
-fastapi==0.65.2
+uvicorn
+fastapi
 python-decouple==3.3
 faunadb==4.1.0
 coinbase==2.1.0

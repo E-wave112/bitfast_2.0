@@ -8,7 +8,6 @@ logger = get_logger_info(__name__)
 
 REDIS_HOST = config("REDIS_HOST")
 REDIS_PASSWORD = config("REDIS_PASSWORD")
-REDIS_USERNAME = config("REDIS_USERNAME")
 REDIS_PORT = config("REDIS_PORT")
 
 
@@ -16,9 +15,9 @@ def get_redis_instance():
     redis_instance = redis.Redis(
         host=REDIS_HOST,
         port=REDIS_PORT,
-        db=0,
         password=REDIS_PASSWORD,
-        username=REDIS_USERNAME,
+        ssl=True,
+        ssl_cert_reqs=None,
     )
     return redis_instance
 
