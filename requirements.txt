@@ -18,3 +18,4 @@ boto3==1.17.54
 pystan==2.19.1.1
 fbprophet==0.7.1
 redis
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
