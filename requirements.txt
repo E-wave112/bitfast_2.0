@@ -1,5 +1,5 @@
 gunicorn==20.1.0
-pandas==1.2.4
+pandas
 httptools
 uvloop
 coverage
@@ -14,7 +14,7 @@ python-decouple==3.3
 faunadb==4.1.0
 coinbase==2.1.0
 boto3==1.17.54
-pystan==2.19.1.1
-fbprophet==0.7.1
+pystan
+fbprophet
 redis
 sentry-sdk==1.15.0
