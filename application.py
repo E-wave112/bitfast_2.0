@@ -93,7 +93,7 @@ async def forecast(
         max_length=100,
         regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$",
     ),
-) -> Predict:
+):
     date_entered = date_input.date_entered
     prediction_list = predict(date_entered)
     # generate a unique identifier along with the email address a user enters, this is to
