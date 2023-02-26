@@ -11,7 +11,7 @@
 
 * The current real-time exchange rate data of Bitcoin in NGN and USD currencies are provided via the [Coinbase Api](https://developers.coinbase.com/docs/wallet/guides/price-data)
 
-* Check out the live API via [this](https://bitfast.herokuapp.com/docs) or [that](https://bitfast.herokuapp.com/redoc) link
+* Check out the live API via [this](https://bitfast.onrender.com/docs) or [that](https://bitfast.onrender.com/redoc) link
 
 ### Metrics 
 - NB: these metrics improve over time as the model keeps learning from new data and hyperparameters are tweaked

@@ -73,7 +73,7 @@ logger.info("Redis instance created")
 
 @app.get("/", tags=["getting-started"])
 async def index() -> str:
-    res_message = "welcome to bitfast!, kindly access this url https://bitfast.herokuapp.com/docs to fully explore the API"
+    res_message = "welcome to bitfast!, kindly access this url https://bitfast.onrender.com/docs to fully explore the API"
     return manage_redis_str("index", res_message, 525600)
 
 
@@ -93,7 +93,7 @@ async def forecast(
         max_length=100,
         regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$",
     ),
-):
+) -> Predict:
     date_entered = date_input.date_entered
     prediction_list = predict(date_entered)
     # generate a unique identifier along with the email address a user enters, this is to
