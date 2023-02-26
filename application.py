@@ -1,6 +1,26 @@
 from fastapi import FastAPI, HTTPException, Query
 from typing import Optional, List
 from decouple import config
+
+import sentry_sdk
+
+# if the environment is production, then capture 80% of the errors/traces otherwise 100%
+# if config("ENVIRONMENT") == "production":
+sentry_sdk.init(
+    dsn="https://5582edf5ceb84459875b2cf8ece8994d@o4504743748173824.ingest.sentry.io/4504743754268672",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+    _experiments={
+    "profiles_sample_rate": 1.0,
+    },
+    environment=config("ENV"),
+)
+# else:
+
+
 from utils.logger_file import get_logger_info
 
 # import the fauna driver
