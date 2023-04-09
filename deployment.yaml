@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitfast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitfast
+  template:
+    metadata:
+      labels:
+        app: bitfast
+    spec:
+      containers:
+        - name: bitfast
+          image: ewave112/bitfast-image:dev
+          ports:
+            - containerPort: 8000
