@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+  web:
+    image: bitfast:dev
+    build:
+      context: ./
+    container_name: bitfast
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - API_KEY=${API_KEY}
+      - AWS_ID=${AWS_ID}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_URL=${REDIS_URL}
+      - COINBASE_API_KEY=${COINBASE_API_KEY}
+      - COINBASE_SECRET_KEY=${COINBASE_SECRET_KEY}
+      - FAUNA_SECRET_KEY=${FAUNA_SECRET_KEY}
+      - ENV=${ENV}
+    networks:
+      - bitfast_network
+
+networks:
+  bitfast_network:
+    name: bitfast_network

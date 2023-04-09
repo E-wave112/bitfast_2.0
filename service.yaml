@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitfast-service
+spec:
+  selector:
+    app: bitfast
+  ports:
+    - protocol: TCP
+      port: 9500
+      targetPort: 8000
+  type: LoadBalancer
+#  create a commented service discovery manifest using type NodePort
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bitfast-service
+# spec:
+#   selector:
+#     app: bitfast
+#   ports:
+#     - protocol: TCP
+#       port: 9500
+#       nodePort: 30000
+#       targetPort: 8000
+#   type: NodePort
