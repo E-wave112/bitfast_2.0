@@ -69,6 +69,57 @@ $ docker-compose up
 
 * A useful resource on how to push your docker image to [DockerHub](https://hub.docker.com)  can be found [here](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
 
+### Running the Kubernetes cluster locally
+
+* Ensure you have [minikube](https://minikube.sigs.k8s.io/docs/start/) installed on your machine
+
+* Start the minikube cluster by running the command below:
+```
+$ minikube start
+```
+* To check the status of the cluster, run the command below:
+```
+$ minikube status
+```
+
+* Create a service discovery pattern for the application by running the command below:
+```
+$ kubectl apply -f k8s/services/service.yaml
+```
+* To deploy the application to the cluster, run the command below:
+```
+$ kubectl apply -f k8s/deployments/deployment.yaml
+```
+* To check the status of the pods, run the command below:
+```
+$ kubectl get pods
+```
+* To check the status of the services, run the command below:
+```
+$ kubectl get services
+```
+* To access the application, tunnel the service via the command below (we need to do this because our k8s service is of type `LoadBalancer`):
+```
+$ minikube tunnel
+```
+* Check the external IP (because you are running the cluster locally, your external IP address will be 127.0.0.1). More guides on that [here](https://minikube.sigs.k8s.io/docs/handbook/accessing/#example-of-loadbalancer)
+```
+$ kubectl get services bitfast-service
+```
+* Open the url below in your browser (ensure the external IP is not **pending** )
+```
+$ http://<external-ip>:9500
+```
+* To delete the application, run the command below:
+```
+$ kubectl delete -f k8s/deployments/deployment.yaml
+```
+* To stop the minikube cluster, run the command below:
+```
+$ minikube stop
+```
+* To deploy your cluster to the cloud, check out the guides from the official [kubernetes](https://kubernetes.io/docs/setup/production-environment/) docs
+
 
 
 **Wanna check out my other machine learning projects and implementations?**  see them all [here](https://github.com/E-wave112/ml_proj1).
