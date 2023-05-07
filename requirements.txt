@@ -19,3 +19,4 @@ fbprophet==0.7.1
 redis
 sentry-sdk==1.15.0
 Cython
+numpy
