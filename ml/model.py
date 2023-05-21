@@ -1,4 +1,4 @@
-from fbprophet import Prophet
+from prophet import Prophet
 import datetime
 import sys
 import warnings

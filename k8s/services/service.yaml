@@ -7,7 +7,7 @@ spec:
     app: bitfast
   ports:
     - protocol: TCP
-      port: 9500
+      port: 9600
       targetPort: 8000
   type: LoadBalancer
 #  create a commented service discovery manifest using type NodePort
