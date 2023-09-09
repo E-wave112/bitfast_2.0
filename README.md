@@ -28,24 +28,24 @@ To get started with the project, ensure you have setup and activated a virtual e
 clone the repository via the command
 
 ```
-$ git clone https://github.com/E-wave112/bitfast_2.0
+git clone https://github.com/E-wave112/bitfast_2.0
 ```
 install dependencies
 
 ```
-$ python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 ### Running the development Server
 
 start the server by running the bash script below:
 ```
-$ bash start.sh
+bash start.sh
 ```
 
 Alternatively, you can start the server using the command below:
 ```
-$ uvicorn application:app --reload
+uvicorn application:app --reload
 ```
 
 the server will be running on http://localhost:8000/docs
@@ -54,14 +54,14 @@ the server will be running on http://localhost:8000/docs
 
 #### Build the initial docker image
 ```
-$ docker-compose up --build
+docker-compose up --build
 ```
 #### Running the Dev Docker container
 
 To run the application, use the following command:
 
 ```
-$ docker-compose up
+docker-compose up
 ```
 * The app will be running on http://127.0.0.1:8000
 * Access the docker image for this project on the cloud [here](https://hub.docker.com/repository/docker/ewave112/fake_space_image)
@@ -75,48 +75,48 @@ $ docker-compose up
 
 * Start the minikube cluster by running the command below:
 ```
-$ minikube start
+minikube start
 ```
 * To check the status of the cluster, run the command below:
 ```
-$ minikube status
+minikube status
 ```
 
 * Create a service discovery pattern for the application by running the command below:
 ```
-$ kubectl apply -f k8s/services/service.yaml
+kubectl apply -f k8s/services/service.yaml
 ```
 * To deploy the application to the cluster, run the command below:
 ```
-$ kubectl apply -f k8s/deployments/deployment.yaml
+kubectl apply -f k8s/deployments/deployment.yaml
 ```
 * To check the status of the pods, run the command below:
 ```
-$ kubectl get pods
+kubectl get pods
 ```
 * To check the status of the services, run the command below:
 ```
-$ kubectl get services
+kubectl get services
 ```
 * To access the application, tunnel the service via the command below (we need to do this because our k8s service is of type `LoadBalancer`):
 ```
-$ minikube tunnel
+minikube tunnel
 ```
 * Check the external IP (because you are running the cluster locally, your external IP address will be 127.0.0.1). More guides on that [here](https://minikube.sigs.k8s.io/docs/handbook/accessing/#example-of-loadbalancer)
-```
-$ kubectl get services bitfast-service
+```bash
+kubectl get services bitfast-service
 ```
 * Open the url below in your browser (ensure the external IP is not **pending** )
 ```
-$ http://<external-ip>:9500
+http://<external-ip>:9500
 ```
 * To delete the application, run the command below:
 ```
-$ kubectl delete -f k8s/deployments/deployment.yaml
+kubectl delete -f k8s/deployments/deployment.yaml
 ```
 * To stop the minikube cluster, run the command below:
 ```
-$ minikube stop
+minikube stop
 ```
 * To deploy your cluster to the cloud, check out the guides from the official [kubernetes](https://kubernetes.io/docs/setup/production-environment/) docs
 
