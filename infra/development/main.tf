@@ -14,28 +14,28 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "k8s_deployment" {
   metadata {
-    name = "bitfast"
+    name = var.deployment_name
     labels = {
-      app = "bitfast"
+      app = var.app_name
     }
   }
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "bitfast"
+        app = var.app_name
       }
     }
     template {
       metadata {
         labels = {
-          app = "bitfast"
+          app = var.app_name
         }
       }
       spec {
         container {
-          name  = "bitfast"
-          image = "ewave112/bitfast-image:dev"
+          name  = var.container_name
+          image = var.image_name
           resources {
             requests = {
               "memory" = "64Mi"
@@ -59,11 +59,11 @@ resource "kubernetes_deployment" "k8s_deployment" {
 
 resource "kubernetes_service" "k8s_service" {
   metadata {
-    name = "bitfast-service"
+    name = var.service_name
   }
   spec {
     selector = {
-      app = "bitfast"
+      app = var.app_name
     }
     port {
       protocol    = "TCP"
