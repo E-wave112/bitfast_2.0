@@ -28,7 +28,7 @@ from faunadb import query as q
 from faunadb.client import FaunaClient
 
 # import pytz and datetime to add timestamps to fauna db
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # import ml model
 from ml.model import predict
@@ -71,10 +71,10 @@ redis_instance = get_redis_instance()
 logger.info("Redis instance created")
 
 
-@app.get("/", tags=["getting-started"])
-async def index() -> str:
-    res_message = "welcome to bitfast!, kindly access this url https://bitfast.onrender.com/docs to fully explore the API"
-    return manage_redis_str("index", res_message, 525600)
+# @app.get("/", tags=["getting-started"])
+# async def index() -> str:
+#     res_message = "welcome to bitfast!, kindly access this url https://bitfast.onrender.com/docs to fully explore the API"
+#     return manage_redis_str("index", res_message, 525600)
 
 
 @app.get("/price", tags=["btcprice"])

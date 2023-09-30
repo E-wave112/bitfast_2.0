@@ -57,6 +57,52 @@ resource "kubernetes_deployment" "k8s_deployment" {
 
 }
 
+# k8s deployment setup for green environments
+resource "kubernetes_deployment" "k8s_green_deployment" {
+  metadata {
+    name = var.deployment_name_green
+    labels = {
+      app = var.app_name_green
+    }
+  }
+  spec {
+    replicas = 1
+    selector {
+      match_labels = {
+        app = var.app_name_green
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = var.app_name_green
+        }
+      }
+      spec {
+        container {
+          name  = var.container_name
+          image = var.image_name_green
+          resources {
+            requests = {
+              "memory" = "64Mi"
+              "cpu"    = "250m"
+            }
+            limits = {
+              "memory" = "128Mi"
+              "cpu"    = "500m"
+            }
+          }
+          port {
+            container_port = 8000
+
+          }
+        }
+      }
+    }
+  }
+
+}
+
 resource "kubernetes_service" "k8s_service" {
   metadata {
     name = var.service_name
