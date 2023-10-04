@@ -12,8 +12,22 @@ variable "app_name" {
 
 }
 
+variable "app_name_green" {
+  default     = "bitfast_green"
+  type        = string
+  description = "name of the app to select from the deployment (used for green deployment)"
+
+}
+
 variable "deployment_name" {
   default     = "bitfast"
+  type        = string
+  description = "name of the kuberenetes deployment"
+
+}
+
+variable "deployment_name_green" {
+  default     = "bitfast-green"
   type        = string
   description = "name of the kuberenetes deployment"
 
@@ -37,5 +51,12 @@ variable "image_name" {
   default     = "ewave112/bitfast-image:dev"
   type        = string
   description = "name of remote docker image"
+
+}
+
+variable "image_name_green" {
+  default     = "ewave112/bitfast-image:dev-v2"
+  type        = string
+  description = "name of remote docker image (to be used for green deployment)"
 
 }

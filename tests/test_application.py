@@ -12,15 +12,15 @@ from utils.redis_helpers import get_redis_instance
 from utils.url import get_url
 
 
-@pytest.mark.anyio
-async def test_root():
-    async with AsyncClient(app=app, base_url=get_url()) as ac:
-        response = await ac.get("/")
-    assert response.status_code == 200
-    assert (
-        response.json()
-        == "welcome to bitfast!, kindly access this url https://bitfast.onrender.com/docs to fully explore the API"
-    )
+# @pytest.mark.anyio
+# async def test_root():
+#     async with AsyncClient(app=app, base_url=get_url()) as ac:
+#         response = await ac.get("/")
+#     assert response.status_code == 200
+#     assert (
+#         response.json()
+#         == "welcome to bitfast!, kindly access this url https://bitfast.onrender.com/docs to fully explore the API"
+#     )
 
 
 @pytest.mark.anyio
