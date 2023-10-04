@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}
+  APP_NAME: ${{ secrets.APP_NAME }}
 
 permissions:
   contents: read
@@ -50,4 +50,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        run: terraform -chdir=infra/development apply -var="app_name=$DOCKER_IMAGE" -auto-approve
+        run: terraform -chdir=infra/development apply -var="app_name=$APP_NAME" -auto-approve
