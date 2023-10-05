@@ -1,0 +1,53 @@
+name: Blue green deployment pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: ${{ secrets.APP_NAME }}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  skip-check:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.0
+        with:
+          skip_after_successful_duplicate: "true"
+  deploy:
+    needs:
+      - skip-check
+    runs-on: ubuntu-latest
+
+    if: |
+      needs.pre_job.outputs.should_skip != 'true' &&
+      github.ref_name == 'main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: terraform -chdir=infra/development init
+
+      - name: Terraform apply
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: terraform -chdir=infra/development apply -var="app_name=$APP_NAME" -auto-approve
