@@ -18,3 +18,4 @@ pystan==2.19.1.1
 prophet
 redis
 sentry-sdk==1.15.0
+fonttools>=4.43.0 # not directly required, pinned by Snyk to avoid a vulnerability
