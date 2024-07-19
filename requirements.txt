@@ -17,4 +17,4 @@ boto3==1.17.54
 pystan==2.19.1.1
 prophet
 redis
-sentry-sdk==1.15.0
+sentry-sdk==2.8.0
